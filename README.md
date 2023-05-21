@@ -21,17 +21,17 @@ The bot currently supports the following commands:
 1. **Set up your Python environment**: Ensure you have Python 3.7 or higher installed on your system. It's also recommended to create a virtual environment for this project.
 
 2. **Install the necessary Python libraries**: Install the `aiotg` library using pip:
-
-pip install aiotg
-
+    ```
+    pip install aiotg
+    ```
 3. **Clone the bot code**: Clone the bot code from the repository or download it to your local system.
 
 4. **Get a Bot Token from Telegram**: To use the Telegram Bot API, you will need a bot token. You can get this from the BotFather bot on Telegram. Save this token into a file named "token" in the same directory as your bot script.
 
 5. **Run the bot**: Execute the bot script using Python. The bot should now be running and ready to receive messages.
-
-python bot.py
-
+    ```
+    python bot.py
+    ```
 6. **Interact with the bot**: Start a chat with your bot on Telegram. You should be able to interact with it using the commands described above.
 
 Remember to replace the token in the deployment instructions with your own Telegram Bot API token.

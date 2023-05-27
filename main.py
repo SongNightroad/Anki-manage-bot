@@ -2,6 +2,7 @@ import logging
 import os
 from telegram import Update
 from telegram.ext import filters, MessageHandler, ApplicationBuilder, CommandHandler, ContextTypes
+import subprocess
 
 # Set up logging module, so you will know when (and why) things don't work as expected.
 logging.basicConfig(
@@ -14,12 +15,23 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Send a message to the chat id that issued the /start command.
     await context.bot.send_message(chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
 
-# This function is a callback for the echo command. It sends back the same message that the user sent.
+
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # context.bot.send_message is a method that sends a message to a user.
-    # chat_id is the id of the chat where the command was issued.
-    # text is the text to be sent. Here we are simply echoing the text the user sent.
-    await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
+    text = update.message.text
+
+    script_path = "./anki_cards_for_bot.py"
+
+    command = ["python", script_path, text]  # Include the arguments in the command list
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    stdout, stderr = process.communicate()
+
+    print (">>>>> HERE IS AN OUTPUT >>>>")
+    print(stdout)
+    print ("<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+
+    # Send the output of the script back to the user.
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=stdout)
+
 
 # This function is a callback for the caps command. It converts the input text to uppercase and sends it back.
 async def caps(update: Update, context: ContextTypes.DEFAULT_TYPE):
